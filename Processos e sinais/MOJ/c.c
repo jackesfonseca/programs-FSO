@@ -5,6 +5,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+
+
 void trata(int s) {
 	int r;
 	char string[11];
@@ -29,6 +31,8 @@ void trata(int s) {
 		printf("Certo\n");
 	}
 	else {
+
+
 		printf("Erro\n");
 	}
 
@@ -41,6 +45,13 @@ int main(void) {
 	signal(SIGUSR2, trata);
 	signal(SIGINT, trata);
 	signal(SIGALRM, trata);
+
+	pid_t p = fork(); //cria processo pai e filho
+
+	//se for pai
+	if(p > 0) {
+		kill(getppid(), SIGALRM);
+	}
 
 	while(1)
 		pause();

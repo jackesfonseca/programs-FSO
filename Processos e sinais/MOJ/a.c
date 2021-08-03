@@ -1,15 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int password=0;
 
 void tratasinal(int s) {
 	printf("Recebi %d\n", s);
 
-	if((password == 0 && s == SIGINT) || (password == 1 && s == SIGUSR2))
+	if(s == SIGINT)
+		password = 1;
+	else if(password == 1 && s == SIGUSR2)
 		password++;
-
 	else if(password == 2 && SIGTERM) {
 		password++;
 		printf("Senha acionada\n");
@@ -22,11 +26,11 @@ void tratasinal(int s) {
 		password = 0;
 }
 
-int main() {
+int main() {	
+	signal(SIGINT, tratasinal);
 	signal(SIGTERM, tratasinal);
 	signal(SIGUSR1, tratasinal);
 	signal(SIGUSR2, tratasinal);
-	signal(SIGINT, tratasinal);
 
 	while(1)
 		pause();

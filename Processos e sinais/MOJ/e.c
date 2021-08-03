@@ -15,11 +15,11 @@ int main(void) {
 	signal(SIGUSR1, tratasinal);
 	signal(SIGUSR2, tratasinal);
 
-	pause();
-	if(fork() == 0)
+	pause(); //recebe sinal
+	if(fork() == 0) //cria processo zumbi
 		exit(0);
-	pause();
-	wait(NULL);
-	pause();
-	exit(0);
+	pause(); //recebe sinal
+	wait(NULL); //matando o processo zumbi
+	pause(); //recebe sinal
+	exit(0); //encerra o programa
 }
