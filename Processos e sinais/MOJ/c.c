@@ -31,9 +31,8 @@ void trata(int s) {
 		printf("Certo\n");
 	}
 	else {
-
-
 		printf("Erro\n");
+		kill(getppid(), SIGALRM);
 	}
 
 }

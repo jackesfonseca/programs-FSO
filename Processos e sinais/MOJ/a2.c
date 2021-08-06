@@ -5,25 +5,31 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int password=0;
+int senha=0;
 
 void tratasinal(int s) {
 	printf("Recebi %d\n", s);
 
-	if(s == SIGINT)
-		password = 1;
-	else if(password == 1 && s == SIGUSR2)
-		password++;
-	else if(password == 2 && s == SIGTERM) {
-		password++;
+	if(senha == 0 && s == SIGINT){
+		senha++;
+	}
+	else if(senha == 1 && s == SIGUSR2){
+		senha++;
+	}
+	else if(senha == 2 && SIGTERM) {
+		senha++;
 		printf("Senha acionada\n");
 	}
-	else if(password == 3 && s == SIGUSR1) {
+	else if(s == SIGINT) {
+		senha=1;
+	}
+	else if(senha == 3 && s == SIGUSR1) {
 		printf("Tchau\n");
 		exit(0);
 	}
-	else
-		password = 0;
+	else{
+		senha = 0;
+	}
 }
 
 int main() {	
