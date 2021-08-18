@@ -3,6 +3,12 @@
 #include <pthread.h>
 #include <unistd.h>
 
+/**
+* Compile link: -pthread
+* gcc file-name.c -o file-name -pthread
+**/
+
+// função que retorna ponteiro do tipo void != de um ponteiro de função (como se fosse um ponteiro para int por exemplo)
 void *cria_thread(void *a) {
   printf("Sou uma thread\n");
   while(1);
