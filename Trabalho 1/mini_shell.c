@@ -35,20 +35,21 @@ int main()
 		arg0 = strtok(path_copy, "/");
 		arg0 = strtok(NULL, "/");
 
-		/* get command start time */
-		gettimeofday(&start, NULL);
+		
 
 		/* if it's a child process */
 		if(fork() == 0)
 		{
+			/* get command start time */
+			gettimeofday(&start, NULL);
 
 			/* execute command */
 			execl(path, arg0, arg1, NULL);
 
-		}
+			/* command end time */
+			gettimeofday(&end, NULL);
 
-		/* command end time */
-		gettimeofday(&end, NULL);
+		}
 
 		/* calculate command execution time in seconds and micros */
 		command_time = end.tv_sec + end.tv_usec/1000000 - start.tv_sec + start.tv_usec/1000000;
