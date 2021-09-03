@@ -42,8 +42,11 @@ int main()
 		{
 			/* execute command and verify error return */
 			if(execl(path, arg0, arg1, NULL) == -1)
-				printf("> Erro: %s\n", strerror(errno));	
+				printf("> Erro: %s\n", strerror(errno));
+
+			exit(0);	
 		}
+	
 
 		/* get child process status */
 		child_process = wait(&ret);
@@ -52,8 +55,9 @@ int main()
 		gettimeofday(&end, NULL);
 
 		/* calculate command execution time in seconds and micros */
-		command_time = end.tv_sec + end.tv_usec/1000000 
-								- start.tv_sec + start.tv_usec/1000000;
+		/*command_time = end.tv_sec + end.tv_usec/1000000 - start.tv_sec + start.tv_usec/1000000;
+		*/
+		command_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec) / 1000;
 
 		/* print result*/
 		printf("> Demorou %.1lf segundos, retornou %d\n", command_time, WEXITSTATUS(ret));
