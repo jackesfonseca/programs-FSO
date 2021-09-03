@@ -4,7 +4,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/time.h>
-#include <time.h> // probably not used
 #include <unistd.h>
 #include <errno.h>
 
@@ -35,31 +34,33 @@ int main()
 		arg0 = strtok(path_copy, "/");
 		arg0 = strtok(NULL, "/");
 
-		
+		/* get command start time */
+		gettimeofday(&start, NULL);
 
 		/* if it's a child process */
 		if(fork() == 0)
 		{
-			/* get command start time */
-			gettimeofday(&start, NULL);
-
-			/* execute command */
-			execl(path, arg0, arg1, NULL);
-
-			/* command end time */
-			gettimeofday(&end, NULL);
-
+			/* execute command and verify error return */
+			if(execl(path, arg0, arg1, NULL) == -1)
+				printf("> Erro: %s\n", strerror(errno));	
 		}
-
-		/* calculate command execution time in seconds and micros */
-		command_time = end.tv_sec + end.tv_usec/1000000 - start.tv_sec + start.tv_usec/1000000;
 
 		/* get child process status */
 		child_process = wait(&ret);
 
+		/* command end time */
+		gettimeofday(&end, NULL);
+
+		/* calculate command execution time in seconds and micros */
+		command_time = end.tv_sec + end.tv_usec/1000000 
+								- start.tv_sec + start.tv_usec/1000000;
+
 		/* print result*/
-		printf("> Demorou %.1lf segundos retornou %d\n", command_time, WEXITSTATUS(ret));
+		printf("> Demorou %.1lf segundos, retornou %d\n", command_time, WEXITSTATUS(ret));
 	}
+
+	/* get final start time */
+	gettimeofday(&end_final, NULL);
 
 	/* calculate final execution time in seconds and micros */
 	program_time = end_final.tv_sec + end_final.tv_usec/1000000 
