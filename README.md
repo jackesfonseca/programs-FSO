@@ -1,2 +1,2 @@
 # programs-FSO
-Dedicated to FSO programs
+Dedicated to Operation System Fundamentals programs
