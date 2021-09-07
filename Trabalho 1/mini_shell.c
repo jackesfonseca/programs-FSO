@@ -27,6 +27,11 @@ int main()
 	/* execute 'til the end of file' */
 	while(scanf("%s %s", path, arg1) != EOF)
 	{
+		/*
+		printf("%s\n", path);
+		printf("%s\n", arg1);
+		*/
+		
 		/* create a copy of path string */
 		strcpy(path_copy, path);
 
