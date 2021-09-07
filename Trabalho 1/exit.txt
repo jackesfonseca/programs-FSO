@@ -1,17 +1,5 @@
-Linux
-/bin/sleep
-1.5
-> Demorou 1.5 segundos, retornou 0
-/bin/true
-ign
-> Demorou 0.0 segundos, retornou 0
-/bin/false
-222
-> Demorou 0.0 segundos, retornou 1
-/bin/uname
--s
-> Demorou 0.0 segundos, retornou 0
-/bin/sleep
-1
 > Demorou 1.0 segundos, retornou 0
->> O tempo total foi de 2.6 segundos
+> Demorou 1.1 segundos, retornou 0
+> Erro: No such file or directory
+> Demorou 0.0 segundos, retornou 2
+>> O tempo total foi de 2.1 segundos

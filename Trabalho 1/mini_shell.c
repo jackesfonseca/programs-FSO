@@ -27,11 +27,6 @@ int main()
 	/* execute 'til the end of file' */
 	while(scanf("%s %s", path, arg1) != EOF)
 	{
-		/*
-		printf("%s\n", path);
-		printf("%s\n", arg1);
-		*/
-		
 		/* create a copy of path string */
 		strcpy(path_copy, path);
 
@@ -49,14 +44,16 @@ int main()
 			if(execl(path, arg0, arg1, NULL) == -1)
 			{
 				printf("> Erro: %s\n", strerror(errno));
+				fflush(stdout);
 				_exit(errno);
 			}
+			//fclose(stdin);
 			exit(errno);	
 		}
 	
 
 		/* get child process status */
-		child_process = wait(&ret);
+		wait(&ret);
 
 		/* command end time */
 		gettimeofday(&end, NULL);
@@ -69,6 +66,7 @@ int main()
 
 		/* print result*/
 		printf("> Demorou %.1lf segundos, retornou %d\n", command_time_t, WEXITSTATUS(ret));
+		fflush(stdout);
 	}
 
 	/* get final start time */
