@@ -79,7 +79,6 @@ int main()
 
 	/* print result */
 	printf(">> O tempo total foi de %.1lf segundos\n", program_time_t);
-
+	
 	return 0;
 }
-
