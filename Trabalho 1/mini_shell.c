@@ -10,7 +10,7 @@
 int main()
 {
 	struct timeval start, end, start_final, end_final;
-	double program_time, command_time;
+	double program_time_t, program_time_s, program_time_m, command_time_t, command_time_s, command_time_m;
 	int ret;
 	pid_t child_process;
 	char *arg0, *arg1, *path, *path_copy;
@@ -55,23 +55,25 @@ int main()
 		gettimeofday(&end, NULL);
 
 		/* calculate command execution time in seconds and micros */
-		/*command_time = end.tv_sec + end.tv_usec/1000000 - start.tv_sec + start.tv_usec/1000000;
-		*/
-		command_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec) / 1000;
+		command_time_s = end.tv_sec - start.tv_sec;
+		command_time_m = (end.tv_usec - start.tv_usec) / 1000000.0;
+		command_time_t = command_time_s + command_time_m;
+		
 
 		/* print result*/
-		printf("> Demorou %.1lf segundos, retornou %d\n", command_time, WEXITSTATUS(ret));
+		printf("> Demorou %.1lf segundos, retornou %d\n", command_time_t, WEXITSTATUS(ret));
 	}
 
 	/* get final start time */
 	gettimeofday(&end_final, NULL);
 
 	/* calculate final execution time in seconds and micros */
-	program_time = end_final.tv_sec + end_final.tv_usec/1000000 
-							- start_final.tv_sec + start_final.tv_usec/1000000;
+	program_time_s = end_final.tv_sec - start_final.tv_sec;
+	program_time_m = (end_final.tv_usec - start_final.tv_usec) / 1000000.0;
+	program_time_t = program_time_s + program_time_m;
 
 	/* print result */
-	printf(">> O tempo total foi de %.1lf segundos\n", program_time);
+	printf(">> O tempo total foi de %.1lf segundos\n", program_time_t);
 
 	return 0;
 }
