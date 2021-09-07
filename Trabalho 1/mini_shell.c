@@ -42,9 +42,11 @@ int main()
 		{
 			/* execute command and verify error return */
 			if(execl(path, arg0, arg1, NULL) == -1)
+			{
 				printf("> Erro: %s\n", strerror(errno));
-
-			exit(0);	
+				_exit(errno);
+			}
+			exit(errno);	
 		}
 	
 
