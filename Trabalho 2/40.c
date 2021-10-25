@@ -50,9 +50,9 @@ int file_compare(FILE *file1, FILE *file2)
 
 	for(i=0; i<filebyte1; i++)
 	{
-		fread(&text1, 1, i, file1);
-		fread(&text2, 1, i, file2);
-		//printf("%d: tmp1 %c != tmp2 %c\n", i, *text1, *text2);
+		fread(&text1, filebyte1, 1, file1);
+		fread(&text2, filebyte2, 1, file2);
+		printf("%d: tmp1 %x != tmp2 %x\n", i, text1, text2);
 		if(text1 != text2)
 			return 0; /* false */
 	}
