@@ -45,14 +45,17 @@ int file_compare(FILE *file1, FILE *file2)
 	filebyte1 = ftell(file1);
 	filebyte2 = ftell(file2);
 
+	fseek(file1, 0, SEEK_SET);
+	fseek(file2, 0, SEEK_SET);
+
 	if(filebyte1 != filebyte2)
 		return 0; /* false */
 
 	for(i=0; i<filebyte1; i++)
 	{
-		fread(&text1, filebyte1, 1, file1);
-		fread(&text2, filebyte2, 1, file2);
-		printf("%d: tmp1 %x != tmp2 %x\n", i, text1, text2);
+		fread(&text1, 1, 1, file1);
+		fread(&text2, 1, 1, file2);
+		//printf("%d: tmp1 %c != tmp2 %c\n", i, text1, text2);
 		if(text1 != text2)
 			return 0; /* false */
 	}
